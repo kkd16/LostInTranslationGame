@@ -9,8 +9,8 @@ import com.amazonaws.services.translate.model.TranslateTextResult;
 public class AmazonTranslateExample {
 
   public static void main(String[] args) {
-    String accessKey = "AKIA4SBPTUWC4SKBWWO4";
-    String secretKey = "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";
+    String accessKey = "AKIA4SBPTUWCY2E2JQ4F";
+    String secretKey = "oDqlmfV54EdKbvVC3Vwoh3kalKmJHPanv1N0IDzV";
     String region = "ca-central-1"; // for example, "us-west-2"
 
     BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
