@@ -1,0 +1,2 @@
+cd chatserver
+mvn package
