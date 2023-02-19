@@ -43,6 +43,9 @@ public class ChatClient extends JFrame implements ActionListener {
         messageTextField = new JTextField();
         sendButton = new JButton("Submit");
         sendButton.addActionListener(this);
+        sendButton.setBackground(new Color(59, 89, 182));
+        sendButton.setForeground(Color.WHITE);
+        sendButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         messagePanel = new JPanel(new BorderLayout());
         
