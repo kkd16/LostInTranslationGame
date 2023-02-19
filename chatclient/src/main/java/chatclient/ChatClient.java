@@ -49,7 +49,7 @@ public class ChatClient extends JFrame implements ActionListener {
 
         // messagePanel = new JPanel(new BorderLayout());
         messagePanel = new JPanel();
-        messagePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        messagePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10)));
         
         messagePanel.add(messageTextField, BorderLayout.CENTER);
         messagePanel.add(sendButton, BorderLayout.EAST);
