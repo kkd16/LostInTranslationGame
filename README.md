@@ -1,7 +1,7 @@
 
 # Huh?
 
-A very inconvient messaging platform. Send your message and the person on the other side sees the message after it has gone through a circle of language translations with Google Translate. The messages are pretty sure to come out a mess, and you have to guess what the original was to be able to view it.
+A very inconvient messaging platform. Send your message and the person on the other side sees the message after it has gone through a circle of language translations with Google Translate. The messages are pretty sure to come out a mess, and you have to guess what the original was to be able to view it. The goal is to make sure the receiver has no idea what you are talking about!
 
 
 

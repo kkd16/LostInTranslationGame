@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,6 +50,7 @@ public class ChatClient extends JFrame implements ActionListener {
         sendButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         messagePanel = new JPanel(new BorderLayout());
+
         
         messagePanel.add(messageTextField, BorderLayout.CENTER);
         messagePanel.add(sendButton, BorderLayout.EAST);
