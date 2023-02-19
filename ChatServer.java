@@ -108,22 +108,27 @@ class ChangeLanguage{
         String[] SecondGrouplanguages = {"zh", "ja", "sm", "ko", "te", "th", "ug", "vi", "ru", "sr"};
         String[] ThirdGrouplanguages = {"az", "ar", "hy", "hi", "he", "fa", "ht", "af", "sw", "tg"};
 
+        String tracer = "en";
 
-        String ret = "";
+        String translated = message;
         for (int i = 0; i < 3; i++) {
             for (String lang : FirstGrouplanguages) {
-                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                translated = Translator.translate(tracer, lang, translated);
+                tracer = lang;
                 //out.println(ret);
             }
             for (String lang : SecondGrouplanguages) {
-                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                translated = Translator.translate(tracer, lang, translated);
+                tracer = lang;
                 //out.println(ret);
             }
             for (String lang : ThirdGrouplanguages) {
-                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                translated = Translator.translate(tracer, lang, translated);
+                tracer = lang;
                 //out.println(ret);
             }
         }
+        String ret = Translator.translate(tracer, "en", translated);
         return ret;
     }
 
