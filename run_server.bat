@@ -1,0 +1,1 @@
+java -jar .\chatserver\target\chatserver-1.0.jar
