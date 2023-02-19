@@ -23,6 +23,7 @@ public class ChatClient extends JFrame implements ActionListener {
     private JPanel messagePanel;
     private JButton sendButton;
     private UIState uiState = UIState.AcceptingMessages;
+    String prevResponse;
 
 
     public ChatClient() {
@@ -62,7 +63,12 @@ public class ChatClient extends JFrame implements ActionListener {
             messageTextField.setText("");
             updateUIState(UIState.AwaitingResponse);
         } else if (uiState == UIState.GuessingTime) {
-            chatTextArea.append("Guessed correct/incorrect\n");
+            if ( prevResponse.replaceAll("[^a-zA-Z0-9\\s]","").equals(message.replaceAll("[^a-zA-Z0-9\\s]","")) ) {
+                chatTextArea.append("Guessed correct\n");
+            } else {
+                chatTextArea.append("Guessed incorrect\n");
+            }
+            
             messageTextField.setText("");
             updateUIState(UIState.AcceptingMessages);
         }
@@ -127,30 +133,3 @@ public class ChatClient extends JFrame implements ActionListener {
     }
 }
 
-class ServerHandler implements Runnable {
-    private BufferedReader in;
-    private ChatClient chatClient;
-
-    public ServerHandler(BufferedReader in, ChatClient chatClient) {
-        this.in = in;
-        this.chatClient = chatClient;
-    }
-
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                String message = in.readLine();
-                if (message == null) {
-                    break;
-                }
-                
-                chatClient.chatTextArea.append("Received: " + message + "\n");
-                chatClient.updateUIState(UIState.GuessingTime);
-
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-}

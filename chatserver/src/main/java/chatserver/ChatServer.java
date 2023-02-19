@@ -71,7 +71,7 @@ class ClientHandler implements Runnable {
                 }
                 System.out.println("Received message: " + message);
 
-                String ret = message + " SEPERATE " + ChangeLanguage.randomizer(message);
+                String ret = message + "Gj2Hc5PqKl9nFtRm" + ChangeLanguage.randomizer(message);
                 out.println(ret);
             }
 
