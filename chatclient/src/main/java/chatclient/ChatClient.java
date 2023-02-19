@@ -11,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 
 enum UIState {
     AcceptingMessages, AwaitingResponse, GuessingTime, AwaitingFirstContact;
@@ -35,23 +38,46 @@ public class ChatClient extends JFrame implements ActionListener {
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Set up the menu bar
+    JMenuBar menuBar = new JMenuBar();
+    JMenu optionsMenu = new JMenu("Options");
+    menuBar.add(optionsMenu);
+    JMenuItem exitMenuItem = new JMenuItem("Exit");
+    exitMenuItem.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    });
+    optionsMenu.add(exitMenuItem);
+    this.setJMenuBar(menuBar);
+
         // Set up the chat area
         chatTextArea = new JTextArea();
+        chatTextArea.setForeground(Color.BLACK);
+        chatTextArea.setBackground(Color.WHITE);
         chatTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(chatTextArea);
         this.add(scrollPane, BorderLayout.CENTER);
 
         // Set up the message area
         messageTextField = new JTextField();
+        messageTextField.setForeground(Color.BLACK);
+        messageTextField.setBackground(Color.WHITE);
+        messageTextField.setCaretColor(Color.WHITE);
+        // Set up the send button
         sendButton = new JButton("Submit");
+        sendButton.setForeground(Color.WHITE);
+        sendButton.setBackground(Color.BLACK);
         sendButton.addActionListener(this);
         sendButton.setBackground(new Color(59, 89, 182));
         sendButton.setForeground(Color.WHITE);
         sendButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-        messagePanel = new JPanel(new BorderLayout());
 
-        
+        messagePanel = new JPanel(new BorderLayout());
+        messagePanel.setBackground(Color.WHITE);
+        messagePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         messagePanel.add(messageTextField, BorderLayout.CENTER);
         messagePanel.add(sendButton, BorderLayout.EAST);
         this.add(messagePanel, BorderLayout.SOUTH);
@@ -66,6 +92,7 @@ public class ChatClient extends JFrame implements ActionListener {
 
         if (uiState == UIState.AcceptingMessages) {
             chatTextArea.append("You: " + message + "\n");
+            chatTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
             out.println(message);
             messageTextField.setText("");
             updateUIState(UIState.AwaitingResponse);
@@ -91,21 +118,29 @@ public class ChatClient extends JFrame implements ActionListener {
         // Accepting messages
         if (uiState == UIState.AcceptingMessages) {
             label = new JLabel("Enter Message: ");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
             sendButton.setEnabled(true);
             messagePanel.add(label, BorderLayout.NORTH);
         // Awaiting response
         } else if (uiState == UIState.AwaitingResponse) {
             label = new JLabel("Message Sent, awaiting response.");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
             sendButton.setEnabled(false);
             messagePanel.add(label, BorderLayout.NORTH);
         // Guessing time
         } else if (uiState == UIState.GuessingTime) {
             label = new JLabel("Guesing Time: ");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
             sendButton.setEnabled(true);
             messagePanel.add(label, BorderLayout.NORTH);
         // Awaiting First Contact
         } else if (uiState == UIState.AwaitingFirstContact) {
             label = new JLabel("Awaiting contact from client 1");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
             sendButton.setEnabled(false);
             messagePanel.add(label, BorderLayout.NORTH);
         }

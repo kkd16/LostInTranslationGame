@@ -31,6 +31,7 @@ class ServerHandler implements Runnable {
                 String[] temp = message.split("Gj2Hc5PqKl9nFtRm");
                 chatClient.prevResponse = temp[0];
                 chatClient.chatTextArea.append("Received: " + temp[1] + "\n");
+                chatClient.chatTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
 
                 chatClient.updateUIState(UIState.GuessingTime);
 
