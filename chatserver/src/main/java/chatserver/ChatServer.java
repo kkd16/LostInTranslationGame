@@ -107,7 +107,7 @@ class Translator {
 class ChangeLanguage{
     static String randomizer(String message) throws IOException {
         String[] FirstGrouplanguages = {"it", "fr", "es","ca", "de", "nl"};
-        String[] SecondGrouplanguages = {"ko", "te", "th", "ug", "vi", "ru"};
+        //String[] SecondGrouplanguages = {"ko", "te", "th", "ug", "vi", "ru"};
         String[] ThirdGrouplanguages = {"ar", "hy", "hi", "fa", "af"};
 
         String tracer = "en";
@@ -121,13 +121,13 @@ class ChangeLanguage{
                 tracer = lang;
                 //out.println(ret);
             }
-            for (String lang : SecondGrouplanguages) {
-                System.out.println("From: " + tracer + " to: " + lang);
-                translated = Translator.translate(tracer, lang, translated);
-                System.out.println("Translatede: " + translated);
-                tracer = lang;
-                //out.println(ret);
-            }
+            // for (String lang : SecondGrouplanguages) {
+            //     System.out.println("From: " + tracer + " to: " + lang);
+            //     translated = Translator.translate(tracer, lang, translated);
+            //     System.out.println("Translatede: " + translated);
+            //     tracer = lang;
+            //     //out.println(ret);
+            // }
             for (String lang : ThirdGrouplanguages) {
                 System.out.println("From: " + tracer + " to: " + lang);
                 translated = Translator.translate(tracer, lang, translated);
