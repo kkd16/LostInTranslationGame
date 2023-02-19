@@ -7,9 +7,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 
 enum UIState {
     AcceptingMessages, AwaitingResponse, GuessingTime, AwaitingFirstContact;
