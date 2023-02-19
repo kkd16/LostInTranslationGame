@@ -69,7 +69,7 @@ class ClientHandler implements Runnable {
                 }
                 System.out.println("Received message: " + message);
 
-                String ret = message + " SEPERATE " + Translator.translate("en", "de", message);
+                String ret = message + " SEPERATE " + ChangeLanguage.randomizer(message);
                 out.println(ret);
             }
 
@@ -103,10 +103,29 @@ class Translator {
 }
 
 class ChangeLanguage{
-    String[] FirstGrouplanguages = {"it", "fr", " pt", "es", " ro","ca", "rm", "de", "nl", " sv"};
-    String[] SecondGrouplanguages = {"zh", "ja", "sm", "ko", "te", "th", "ug", "vi", "ru", "sr"};
-    String[] ThirdGrouplanguages = {"az", "ar", "hy", "hi", "he", "fa", "ht", "af", "sw", "tg"};
-    //String[] FourthGrouplanguages = {};
+    static String randomizer(String message) throws IOException {
+        String[] FirstGrouplanguages = {"it", "fr", " pt", "es", " ro","ca", "rm", "de", "nl", " sv"};
+        String[] SecondGrouplanguages = {"zh", "ja", "sm", "ko", "te", "th", "ug", "vi", "ru", "sr"};
+        String[] ThirdGrouplanguages = {"az", "ar", "hy", "hi", "he", "fa", "ht", "af", "sw", "tg"};
+
+
+        String ret = "";
+        for (int i = 0; i < 3; i++) {
+            for (String lang : FirstGrouplanguages) {
+                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                //out.println(ret);
+            }
+            for (String lang : SecondGrouplanguages) {
+                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                //out.println(ret);
+            }
+            for (String lang : ThirdGrouplanguages) {
+                ret = message + " SEPARATE " + Translator.translate("en", lang, message);
+                //out.println(ret);
+            }
+        }
+        return ret;
+    }
 
 
 }
