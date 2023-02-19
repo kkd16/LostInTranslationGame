@@ -8,11 +8,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+enum UIState {
+    AcceptingMessages, AwaitingResponse, GuessingTime, AwaitingFirstContact;
+}
+
 public class ChatClient extends JFrame implements ActionListener {
 
     JTextArea chatTextArea;
     private JTextField messageTextField;
     private PrintWriter out;
+    private JLabel label;
+    private JPanel messagePanel;
+    private JButton sendButton;
+    private UIState uiState = UIState.AcceptingMessages;
+
 
     public ChatClient() {
         // Set up the chat window
@@ -28,10 +37,11 @@ public class ChatClient extends JFrame implements ActionListener {
 
         // Set up the message area
         messageTextField = new JTextField();
-        JButton sendButton = new JButton("Send");
+        sendButton = new JButton("Submit");
         sendButton.addActionListener(this);
 
-        JPanel messagePanel = new JPanel(new BorderLayout());
+        messagePanel = new JPanel(new BorderLayout());
+        
         messagePanel.add(messageTextField, BorderLayout.CENTER);
         messagePanel.add(sendButton, BorderLayout.EAST);
         this.add(messagePanel, BorderLayout.SOUTH);
@@ -43,9 +53,48 @@ public class ChatClient extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String message = messageTextField.getText();
-        chatTextArea.append("You: " + message + "\n");
-        out.println("You: " + message);
-        messageTextField.setText("");
+
+        if (uiState == UIState.AcceptingMessages) {
+            chatTextArea.append("You: " + message + "\n");
+            out.println(message);
+            messageTextField.setText("");
+            updateUIState(UIState.AwaitingResponse);
+        } else if (uiState == UIState.GuessingTime) {
+            chatTextArea.append("Guessed correct/incorrect\n");
+            messageTextField.setText("");
+            updateUIState(UIState.AcceptingMessages);
+        }
+
+    }
+
+    void updateUIState(UIState newState) {
+
+        uiState = newState;
+
+        if (label != null)
+            messagePanel.remove(label);
+        // Accepting messages
+        if (uiState == UIState.AcceptingMessages) {
+            label = new JLabel("Enter Message: ");
+            sendButton.setEnabled(true);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Awaiting response
+        } else if (uiState == UIState.AwaitingResponse) {
+            label = new JLabel("Message Sent, awaiting response.");
+            sendButton.setEnabled(false);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Guessing time
+        } else if (uiState == UIState.GuessingTime) {
+            label = new JLabel("Guesing Time: ");
+            sendButton.setEnabled(true);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Awaiting First Contact
+        } else if (uiState == UIState.AwaitingFirstContact) {
+            label = new JLabel("Awaiting contact from client 1");
+            sendButton.setEnabled(false);
+            messagePanel.add(label, BorderLayout.NORTH);
+        }
+        messagePanel.revalidate();
     }
 
     public static void main(String[] args) {
@@ -54,10 +103,11 @@ public class ChatClient extends JFrame implements ActionListener {
 
         try {
             try (Socket socket = new Socket("localhost", 5000)) {
-                System.out.println("Connected to server");
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 chatClient.out = new PrintWriter(socket.getOutputStream(), true);
+
+                chatClient.updateUIState(UIState.AcceptingMessages);
 
                 // Start a new thread to handle incoming messages from the server
                 new Thread(new ServerHandler(in, chatClient)).start();
@@ -92,7 +142,10 @@ class ServerHandler implements Runnable {
                 if (message == null) {
                     break;
                 }
-                chatClient.chatTextArea.append("Server: " + message + "\n");
+                
+                chatClient.chatTextArea.append("Received: " + message + "\n");
+                chatClient.updateUIState(UIState.GuessingTime);
+
             }
         } catch (IOException ex) {
             ex.printStackTrace();
