@@ -21,7 +21,7 @@ A very inconvient messaging platform. Send your message and the person on the ot
 
 ## Run Locally
 
-Install Maven
+Install Maven and Java https://www.java.com/download/ie_manual.jsp
 https://maven.apache.org/
 
 Clone the project
