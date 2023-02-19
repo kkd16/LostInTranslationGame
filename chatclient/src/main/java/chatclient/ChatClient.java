@@ -23,6 +23,7 @@ public class ChatClient extends JFrame implements ActionListener {
     private JPanel messagePanel;
     private JButton sendButton;
     private UIState uiState = UIState.AcceptingMessages;
+    String prevResponse;
 
 
     public ChatClient() {
@@ -145,7 +146,10 @@ class ServerHandler implements Runnable {
                     break;
                 }
                 
-                chatClient.chatTextArea.append("Received: " + message + "\n");
+                String[] temp = message.split("Gj2Hc5PqKl9nFtRm");
+                chatClient.prevResponse = temp[0];
+                chatClient.chatTextArea.append("Received: " + temp[1] + "\n");
+
                 chatClient.updateUIState(UIState.GuessingTime);
 
             }
