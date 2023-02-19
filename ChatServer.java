@@ -103,5 +103,10 @@ class Translator {
 }
 
 class ChangeLanguage{
-    
+    String[] FirstGrouplanguages = {"it", "fr", " pt", "es", " ro","ca", "rm", "de", "nl", " sv"};
+    String[] SecondGrouplanguages = {"zh", "ja", "sm", "ko", "te", "th", "ug", "vi", "ru", "sr"};
+    String[] ThirdGrouplanguages = {"az", "ar", "hy", "hi", "he", "fa", "ht", "af", "sw", "tg"};
+    //String[] FourthGrouplanguages = {};
+
+
 }
