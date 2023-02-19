@@ -14,6 +14,7 @@ enum UIState {
     AcceptingMessages, AwaitingResponse, GuessingTime, AwaitingFirstContact;
 }
 
+// Chat client GUI
 public class ChatClient extends JFrame implements ActionListener {
 
     JTextArea chatTextArea;
