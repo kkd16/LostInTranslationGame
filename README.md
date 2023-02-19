@@ -1,7 +1,7 @@
 
 # Huh?
 
-A very inconvient messaging platform. Send your message and the person on the other side sees the message after it has gone through a circle of language translations with Google Translate. The messages are pretty sure to come out a mess, and you have to guess what the original was to be able to view it. The goal is to make sure the receiver has no idea what you are talking about!
+A very inconvient messaging platform. Send your message and the person on the other side sees the message after it has gone through a circle of language translations with Google Translate. The messages are pretty sure to come out a mess, and you have to guess what the original was to be able to view it. The goal is to make sure the receiver has no idea what you are talking about! Project for Mountain Madness 2023 Hackathon at SFU.
 
 
 
@@ -21,8 +21,10 @@ A very inconvient messaging platform. Send your message and the person on the ot
 
 ## Run Locally
 
-Install Maven
+Install Maven and Java
 https://maven.apache.org/
+https://www.java.com/download/ie_manual.jsp
+
 
 Clone the project
 
@@ -30,43 +32,28 @@ Clone the project
   git clone https://github.com/kkd16/LostInTranslationGame
 ```
 
-Go to the project directory
-
-```bash
-  cd LostInTranslationGame
-```
-
 Build the server
 
 ```bash
-  cd chatserver
-  mvn package
+  Run the file build_server.bat
 ```
 
 Run the server
 
 ```bash
-  java -jar .\target\chatserver-1.0.jar
-```
-
-Go back to the project directory
-
-```bash
-  cd..
+  Run the file run_server.bat
 ```
 
 Build the client
 
 ```bash
-  cd chatclient
-  mvn package
+  Run the file build_client.bat
 ```
 
 Run the client x2
 
 ```bash
-  java -jar .\target\chatclient-1.0.jar
+  Run the file run_client.bat 2 times
 ```
 
-NOTE: The jar files should be run in seperate terminal windows and the terminal should be left open while running. Do not double click the jar files from the file explorer or it won't run properly.
-
+NOTE: The terminal windows for both clients and the server should be kept open while the application is running. You must have two clients open to use this app and should restart the server is any clients need to reconnect.
