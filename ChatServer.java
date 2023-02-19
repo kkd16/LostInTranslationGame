@@ -83,7 +83,7 @@ class ClientHandler implements Runnable {
 class Translator {
     static String translate(String langFrom, String langTo, String text) throws IOException {
         // INSERT YOU URL HERE
-        String urlStr = "https://script.google.com/macros/s/AKfycbwh1Pro09OkcKpjc9f-8alntvl4lTwQoAhTFKRreLo8TtutxfNqmV6oky1jGYnygeEtSw/exec" +
+        String urlStr = "https://script.google.com/macros/s/AKfycbxxEiLDc4tuaj2Wd3JGN0NpEn8WBTaRUme-JWvGuRA3g41jPVkxEdydjKtH_7ZenShHig/exec" +
                 "?q=" + URLEncoder.encode(text, "UTF-8") +
                 "&target=" + langTo +
                 "&source=" + langFrom;
@@ -104,29 +104,35 @@ class Translator {
 
 class ChangeLanguage{
     static String randomizer(String message) throws IOException {
-        String[] FirstGrouplanguages = {"it", "fr", " pt", "es", " ro","ca", "rm", "de", "nl", " sv"};
-        String[] SecondGrouplanguages = {"zh", "ja", "sm", "ko", "te", "th", "ug", "vi", "ru", "sr"};
-        String[] ThirdGrouplanguages = {"az", "ar", "hy", "hi", "he", "fa", "ht", "af", "sw", "tg"};
+        String[] FirstGrouplanguages = {"it", "fr", "pt", "es", "ro","ca", "de", "nl", "sv"};
+        // String[] SecondGrouplanguages = {"sm", "ko", "te", "th", "ug", "vi", "ru"};
+        // String[] ThirdGrouplanguages = {"ar", "hy", "hi", "fa", "ht", "af"};
 
         String tracer = "en";
 
         String translated = message;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             for (String lang : FirstGrouplanguages) {
+                System.out.println("From: " + tracer + " to: " + lang);
                 translated = Translator.translate(tracer, lang, translated);
+                System.out.println("Translatede: " + translated);
                 tracer = lang;
                 //out.println(ret);
             }
-            for (String lang : SecondGrouplanguages) {
-                translated = Translator.translate(tracer, lang, translated);
-                tracer = lang;
-                //out.println(ret);
-            }
-            for (String lang : ThirdGrouplanguages) {
-                translated = Translator.translate(tracer, lang, translated);
-                tracer = lang;
-                //out.println(ret);
-            }
+            // for (String lang : SecondGrouplanguages) {
+            //     System.out.println("From: " + tracer + " to: " + lang);
+            //     translated = Translator.translate(tracer, lang, translated);
+            //     System.out.println("Translatede: " + translated);
+            //     tracer = lang;
+            //     //out.println(ret);
+            // }
+            // for (String lang : ThirdGrouplanguages) {
+            //     System.out.println("From: " + tracer + " to: " + lang);
+            //     translated = Translator.translate(tracer, lang, translated);
+            //     System.out.println("Translatede: " + translated);
+            //     tracer = lang;
+            //     //out.println(ret);
+            // }
         }
         String ret = Translator.translate(tracer, "en", translated);
         return ret;
