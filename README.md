@@ -21,10 +21,8 @@ A very inconvient messaging platform. Send your message and the person on the ot
 
 ## Run Locally
 
-Install Maven and Java
+Install Maven
 https://maven.apache.org/
-https://www.java.com/download/ie_manual.jsp
-
 
 Clone the project
 
@@ -32,28 +30,43 @@ Clone the project
   git clone https://github.com/kkd16/LostInTranslationGame
 ```
 
+Go to the project directory
+
+```bash
+  cd LostInTranslationGame
+```
+
 Build the server
 
 ```bash
-  Run the file build_server.bat
+  cd chatserver
+  mvn package
 ```
 
 Run the server
 
 ```bash
-  Run the file run_server.bat
+  java -jar .\target\chatserver-1.0.jar
+```
+
+Go back to the project directory
+
+```bash
+  cd..
 ```
 
 Build the client
 
 ```bash
-  Run the file build_client.bat
+  cd chatclient
+  mvn package
 ```
 
 Run the client x2
 
 ```bash
-  Run the file run_client.bat 2 times
+  java -jar .\target\chatclient-1.0.jar
 ```
 
-NOTE: The terminal windows for both clients and the server should be kept open while the application is running. You must have two clients open to use this app and should restart the server is any clients need to reconnect.
+NOTE: The jar files should be run in seperate terminal windows and the terminal should be left open while running. Do not double click the jar files from the file explorer or it won't run properly.
+
