@@ -110,35 +110,41 @@ public class ChatClient extends JFrame implements ActionListener {
     }
 
     void updateUIState(UIState newState) {
+
         uiState = newState;
 
         if (label != null)
             messagePanel.remove(label);
-        label = new JLabel(getLabelMessage());
-        label.setForeground(Color.BLACK);
-        label.setFont(new Font("Arial", Font.BOLD, 15));
-        sendButton.setEnabled(getSendButtonState());
-        messagePanel.add(label, BorderLayout.NORTH);
-        messagePanel.revalidate();
-    }
-    
-    private String getLabelMessage() {
-        switch (uiState) {
-            case AcceptingMessages:
-                return "Enter Message: ";
-            case AwaitingResponse:
-                return "Message Sent, awaiting response.";
-            case GuessingTime:
-                return "Guessing Time: ";
-            case AwaitingFirstContact:
-                return "Awaiting contact from client 1";
-            default:
-                throw new IllegalArgumentException("Invalid UI state");
+        // Accepting messages
+        if (uiState == UIState.AcceptingMessages) {
+            label = new JLabel("Enter Message: ");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
+            sendButton.setEnabled(true);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Awaiting response
+        } else if (uiState == UIState.AwaitingResponse) {
+            label = new JLabel("Message Sent, awaiting response.");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
+            sendButton.setEnabled(false);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Guessing time
+        } else if (uiState == UIState.GuessingTime) {
+            label = new JLabel("Guesing Time: ");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
+            sendButton.setEnabled(true);
+            messagePanel.add(label, BorderLayout.NORTH);
+        // Awaiting First Contact
+        } else if (uiState == UIState.AwaitingFirstContact) {
+            label = new JLabel("Awaiting contact from client 1");
+            label.setForeground(Color.BLACK);
+            label.setFont(new Font("Arial", Font.BOLD, 15));
+            sendButton.setEnabled(false);
+            messagePanel.add(label, BorderLayout.NORTH);
         }
-    }
-    
-    private boolean getSendButtonState() {
-        return uiState == UIState.AcceptingMessages || uiState == UIState.GuessingTime;
+        messagePanel.revalidate();
     }
 
     public static void main(String[] args) {

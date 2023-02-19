@@ -48,3 +48,97 @@ public class ChatServer {
         }
     }
 }
+
+class ClientHandler implements Runnable {
+    private Socket from;
+    private Socket to;
+
+    public ClientHandler(Socket from, Socket to) {
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public void run() {
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(from.getInputStream()));
+            PrintWriter out = new PrintWriter(to.getOutputStream(), true);
+
+            while (true) {
+                String message = in.readLine();
+                if (message == null) {
+                    break;
+                }
+                System.out.println("Received message: " + message);
+
+                String ret = message + "Gj2Hc5PqKl9nFtRm" + ChangeLanguage.randomizer(message);
+                out.println(ret);
+            }
+
+            from.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+
+class Translator {
+    static String translate(String langFrom, String langTo, String text) throws IOException {
+        // INSERT YOU URL HERE
+        String urlStr = "https://script.google.com/macros/s/AKfycbxxEiLDc4tuaj2Wd3JGN0NpEn8WBTaRUme-JWvGuRA3g41jPVkxEdydjKtH_7ZenShHig/exec" +
+                "?q=" + URLEncoder.encode(text, "UTF-8") +
+                "&target=" + langTo +
+                "&source=" + langFrom;
+        URL url = new URL(urlStr);
+        StringBuilder response = new StringBuilder();
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response.toString();
+    }
+
+}
+
+class ChangeLanguage{
+    static String randomizer(String message) throws IOException {
+        String[] FirstGrouplanguages = {"it", "fr", "pt", "es", "ro","ca", "de", "nl", "sv"};
+        // String[] SecondGrouplanguages = {"sm", "ko", "te", "th", "ug", "vi", "ru"};
+        // String[] ThirdGrouplanguages = {"ar", "hy", "hi", "fa", "ht", "af"};
+
+        String tracer = "en";
+
+        String translated = message;
+        for (int i = 0; i < 1; i++) {
+            for (String lang : FirstGrouplanguages) {
+                System.out.println("From: " + tracer + " to: " + lang);
+                translated = Translator.translate(tracer, lang, translated);
+                System.out.println("Translatede: " + translated);
+                tracer = lang;
+                //out.println(ret);
+            }
+            // for (String lang : SecondGrouplanguages) {
+            //     System.out.println("From: " + tracer + " to: " + lang);
+            //     translated = Translator.translate(tracer, lang, translated);
+            //     System.out.println("Translatede: " + translated);
+            //     tracer = lang;
+            //     //out.println(ret);
+            // }
+            // for (String lang : ThirdGrouplanguages) {
+            //     System.out.println("From: " + tracer + " to: " + lang);
+            //     translated = Translator.translate(tracer, lang, translated);
+            //     System.out.println("Translatede: " + translated);
+            //     tracer = lang;
+            //     //out.println(ret);
+            // }
+        }
+        String ret = Translator.translate(tracer, "en", translated);
+        return ret;
+    }
+
+
+}
